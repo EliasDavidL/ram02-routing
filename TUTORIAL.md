@@ -128,29 +128,81 @@ Lo mismo pasaría con `http://localhost:3000/ubicacion`.
 
 ---
 
-# `NavLink & Link`
+# `Link`
 
 <a id="item4"></a>
 
-Como vimos anteriormente podíamos escribir un `URL` y navegar a algunas de tus rutas, esto no es muy perfomante. La idea es que podamos combinar nuestros componentes con estas rutas, es decir, que nosotros al hacer un clic en un componente, nos lleve hacia una ruta específica, como por ejemplo los items de nuestro navbar.
+Ya funcionando nuestras rutas ahora podríamos crear enlaces que al hacer un clic nos lleve a una ruta específica.
 
-Primero vamos a conocer dos métodos que nos trae `react-router-dom`. Estos son Link y NavLink.
+Primero vamos a conocer un método que nos trae `react-router-dom`. Este es el método Link, el cuál se utiliza para crear enlaces a diferentes rutas dentro de una aplicación de React.
 
 - Link: El componente link en React Router funciona a partir de su propiedad `to`. En esta propiedad, asignamos como valor el enlace a la página que queremos llevar. Por debajo de link hay un elemento a. Sin embargo, React browser Router lo envuelve de una manera en la que no se fuerce la petición al servidor. Por ello, el componente link nos permite mantener la navegación a nivel del browser o navegador.
 
-- NavLink: La diferencia principal es que el navLink, como su nombre indica, se usa principalmente para barras de navegación. Esto se debe a que nos va a dar una clase llamada «active» cuando el elemento haga match con el link en React. Es decir, podemos estilizar cómo se ve el elemento cuando esté seleccionado.
-
-Sabiendo esto, podríamos ya pensar que link podría encajar muy bien con el componente de nuestro logo, por ejemplo o bien con otros componentes fuera del navbar que quieran llevarme a una determinada ruta, como lo podría ser una página de contacto, que al hacer clic en "contactar", te dirija a esta página y ruta específica. Hagamos nuestro ejemplo con el logo e links de navegación.
+Veamos un ejemplo de cómo podríamos realizar enlaces a nuestras rutas ya implementadas desde el componente `NavbarComponent`:
 
 ![Context](./src/assets/img-12.png)
 
-Así es como se ve nuestro código. Pueden ver que el logo contiene el link que me va a dirigir a "inicio", lo mismo que hace el enlace "personajes", pero con una salvedad, que al ser un NavLink, nosotros podremos utilizar esa clase llamada active para dar unos estilos extras que ya veremos más adelante junto a boostrap.
+Podemos ver que el llamamos al componente `Link` 4 veces.
 
-Resultado:
+Primer llamado del componente Link de react-router-dom:
+
+```jsx
+<div>
+  <Link to="/">Logo</Link>
+</div>
+```
+
+En este fragmento de código, se crea un div que contiene un enlace (Link) con el texto "Logo". El atributo to="/" indica que el enlace dirige a la ruta principal de la aplicación.
+
+Resto de los componentes link:
+
+```jsx
+<div>
+  <Link to="/">Personajes</Link>
+  <Link to="/episodios">Episodios</Link>
+  <Link to="/ubicacion">Ubicación</Link>
+</div>
+```
+
+Aquí se crean tres enlaces más utilizando el componente Link. Cada enlace tiene un texto que representa una sección específica de la aplicación y un atributo to que indica la ruta a la que se dirige cada enlace.
+
+También dependiendo la estructura de estilos podría encerrar cada enlace en un `div` contendedor, por ejemplo, si desean aplicar estilos específicos a cada enlace o envolverlos en una estructura de cuadrícula.
+
+Ej:
+
+```jsx
+<div>
+  <div>
+    <Link to="/">Personajes</Link>
+  </div>
+  <div>
+    <Link to="/episodios">Episodios</Link>
+  </div>
+  <div>
+    <Link to="/ubicacion">Ubicación</Link>
+  </div>
+</div>
+```
+
+Yo por el momento lo dejaré como el primer ejemplo. Lo que si me gustaría añadir es resaltar visualmente el enlace activo en la barra de navegación, es decir, que al hacer un clic en uno de estos enlaces se le de ciertos estilos al mismo para resaltar como "enlace activo", agregando una clase de css que voy a llamar `active`.
+
+Antes de la versión 6 de react-router-dom se utilizaba un componente llamado `NavLink`, sin embargo, a partir de la v6+ el componente NavLink ha sido eliminado y no está disponible. En su lugar, podemos utilizar el componente Link como lo tenemos y agregar lógica para resaltar el enlace activo utilizando el enrutador `useLocation` proporcionado por react-router-dom.
+
+Cambiemos el código para ver cómo lograrlo:
 
 ![Context](./src/assets/img-13.png)
 
-Por ahora no se ve muy bonita nuestra app, pero al menos ya funciona. Con Leandro lo que buscamos es tratar de ir a un ritmo que no se frustren e ir conociendo las tecnologías lo más desglozado posible y que las entiendan para luego avanzar.
+En este ejemplo, utilizamos el hook useLocation de react-router-dom para obtener la ubicación actual. Comparamos `location.pathname` con la ruta de cada enlace y, si coinciden, agregamos la clase "active" al enlace mediante la propiedad className.
+
+Voy a agregar la clase `active` en el archivo `index.css` para comprobar que el código anterior esté funcionando:
+
+![Context](./src/assets/img-14.png)
+
+Resultado:
+
+![Context](./src/assets/img-15.png)
+
+Definitivamente el código está funcionando. La aplicación no se ve muy bonita hasta ahora, pero ya iremos mejorando la misma con las próximas unidades.
 
 ---
 
@@ -169,7 +221,7 @@ http://localhost:5173/perritofeliz
 
 Veamos eso:
 
-![Context](./src/assets/img-14.png)
+![Context](./src/assets/img-16.png)
 
 Podemos ver que nuestro enrutador no hace match con ninguna de nuestras rutas, por ende, nosotros podríamos crear una nueva página para manejar estos casos, y en caso de que nos llegue una URL que no haga match, mostrar un error, por ejemplo un 404 not found.
 
