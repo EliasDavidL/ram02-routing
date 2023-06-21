@@ -8,3 +8,6 @@ export * from './components/NavbarComponent';
 export * from './pages/HomePage';
 export * from './pages/LocationPage';
 export * from './pages/EpisodesPage';
+/* Sesion pages*/
+export * from "../auth/Iniciar";
+export * from "../auth/Registrar";

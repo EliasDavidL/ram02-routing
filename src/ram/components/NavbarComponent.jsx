@@ -29,9 +29,21 @@ export const NavbarComponent = () => {
         >
           Ubicación
         </Link>
+        <Link
+          to="/Registrarse"
+          className={location.pathname === "/Registrarse" ? "active" : ""}
+        >
+          Registrarse
+        </Link>
+        
       </div>
       <div>
-        ingresar
+      <Link
+          to="/Iniciar"
+          className={location.pathname === "/Iniciar" ? "active" : ""}
+        >
+          Ingresar
+        </Link>
       </div>
     </nav>
   );
